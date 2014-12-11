@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "CollectionViewCell.h"
-#import <AppiariesSDK/AppiariesSDK.h>
+//TODO: AppiariesSDKのimport
 
 @interface ViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -67,19 +67,8 @@
     //コレクションID
     NSString *collectionId = @"imageFile";
     
-    //APIClientオブジェクトの作成
-    APISFileAPIClient *api = [[APISSession sharedSession] createFileAPIClientWithCollectionId:collectionId];
-    [api retrieveBinaryObjectBinaryWithId:dict[@"imageObjectId"]
-        success:^(APISResponseObject *response) {
-            //レスポンスのバイナリデータを取得
-            UIImage *image = [[UIImage alloc]initWithData:(NSData*)response.data[@"_bin"]];
-            
-            //画像をCellに設定
-            [cell.mainImageView setImage:image];
-        } failure:^(NSError *error) {
-            NSLog(@"%@", error);
-        }
-    ];
+    //TODO: APIClientオブジェクトの作成とFileSDKの呼び出し
+
     
     //テキスト
     cell.commentLabel.text = dict[@"comment"];
@@ -102,41 +91,12 @@
     //コレクションID
     NSString *collectionId = @"post";
     
-    //APIClientオブジェクトの作成
-    APISJsonAPIClient *api = [[APISSession sharedSession] createJsonAPIClientWithCollectionId:collectionId];
+    //TODO: APIClientオブジェクトの作成
 
-    //JSON Dataの条件を指定します。今回は絞込条件なし
-    APISQueryCondition *query = [[APISQueryCondition alloc] init];
-//    [query setEqualValue:@"" forKey:@""];
+    //TODO: JSON Dataの条件を指定します。今回は絞込条件なし
     
-    //JSONオブジェクトを取得する
-    [api searchJsonObjectsWithQueryCondition:query
-        success:^(APISResponseObject *response) {
-            //responseオブジェクトの中身をデバッグ
-            NSLog(@"%@", response.data);
-            
-            //responseオブジェクトから、データを取得
-            NSArray *objs = [response.data objectForKey:@"_objs"];
-            
-            NSMutableArray *m = [NSMutableArray new];
-            for (NSDictionary *dict in objs) {
-                //配列にデータを追加
-                [m addObject:dict];
-            }
-            self.collections = [m mutableCopy];
-            
-            //テーブルを更新
-            [self.collectionView reloadData];
-            
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            [self.refreshControl endRefreshing];
-            
-        } failure:^(NSError *error) {
-            NSLog(@"%@", error);
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            [self.refreshControl endRefreshing];
-        }
-    ];
+    //TODO: JSONオブジェクトを取得する
+
 }
 
 @end

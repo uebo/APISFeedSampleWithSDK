@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import <AppiariesSDK/AppiariesSDK.h>
 
 @interface AppDelegate ()
 
@@ -17,8 +16,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    //アピアリーズのセッションを初期化する
-    [[APISSession sharedSession] configureWithDatastoreId:@"_sandbox" applicationId:@"APISFeedSample" applicationToken:@"app60433c173d722dc86abc41c6da"];
+    //TODO: アピアリーズのセッションを初期化する
     
     // APNs: プッシュ通知機能利用登録（デバイストークン発行要求）
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
@@ -71,9 +69,7 @@
                                  @"my-attr1-key" : @"my-attr1-val",
                                  @"my-attr2-key" : @"my-attr2-val"
                                  };
-    // デバイストークン登録APIの実行
-    APISPushAPIClient *api = [[APISSession sharedSession] createPushAPIClient];
-    [api registerDeviceToken:deviceToken attributes:attributes];
+    //TODO: デバイストークン登録APIの実行
 }
 
 // APNs: デバイストークン発行失敗時ハンドラ

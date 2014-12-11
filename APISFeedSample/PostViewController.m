@@ -8,7 +8,7 @@
 
 #import "PostViewController.h"
 #import "UIImage+Extensions.h"
-#import <AppiariesSDK/AppiariesSDK.h>
+//TODO: AppiariesSDKのimport
 
 @interface PostViewController ()<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -70,22 +70,7 @@
     __weak typeof(self) weakSelf = self;
     //コレクションID
     NSString *collectionId = @"imageFile";
-    //APIクライアントを作成
-    APISFileAPIClient *api = [[APISSession sharedSession] createFileAPIClientWithCollectionId:collectionId];
-    [api createBinaryObjectWithId:nil filename:fileName binary:imageData meta:parameters
-        success:^(APISResponseObject *response) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            //responseオブジェクトからIDを取得
-            NSString *objectId = [response.data objectForKey:@"_id"];
-            
-            //JSONデータ作成処理へ
-            [weakSelf postDataWithObjectId:objectId];
-        } failure:^(NSError *error) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            NSLog(@"%@", error);
-            self.saveButtonItem.enabled = YES;
-        }
-    ];
+    //TODO: APIクライアントを作成、File SDKによるファイル登録
 }
 
 - (void)postDataWithObjectId:(NSString*)objectId
@@ -103,27 +88,8 @@
     //コレクションID
     NSString *collectionId = @"post";
     
-    //JSON APIの呼び出し
-    APISJsonAPIClient *api = [[APISSession sharedSession] createJsonAPIClientWithCollectionId:collectionId];
-    [api createJsonObjectWithId:nil data:parameters
-        success:^(APISResponseObject *response) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            
-            //成功表示
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"成功!"
-                                                            message:@"登録しました！"
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
-            //閉じる
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } failure:^(NSError *error) {
-            NSLog(@"error: %@",error);
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            self.saveButtonItem.enabled = YES;
-        }
-    ];
+    //TODO: JSON APIの呼び出し
+
 }
 
 - (IBAction)photoButtonAction:(id)sender {

@@ -17,9 +17,6 @@
 		98FC54421A09B977002A92A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98FC54411A09B977002A92A7 /* Images.xcassets */; };
 		98FC54451A09B977002A92A7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98FC54431A09B977002A92A7 /* LaunchScreen.xib */; };
 		98FC54511A09B977002A92A7 /* APISFeedSampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FC54501A09B977002A92A7 /* APISFeedSampleTests.m */; };
-		98FC545B1A09BA21002A92A7 /* AppiariesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98FC545A1A09BA21002A92A7 /* AppiariesSDK.framework */; };
-		98FC545D1A09BA53002A92A7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98FC545C1A09BA53002A92A7 /* QuartzCore.framework */; };
-		98FC545F1A09BA68002A92A7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98FC545E1A09BA68002A92A7 /* MobileCoreServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,9 +49,6 @@
 		98FC544A1A09B977002A92A7 /* APISFeedSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = APISFeedSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98FC544F1A09B977002A92A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98FC54501A09B977002A92A7 /* APISFeedSampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APISFeedSampleTests.m; sourceTree = "<group>"; };
-		98FC545A1A09BA21002A92A7 /* AppiariesSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppiariesSDK.framework; sourceTree = "<group>"; };
-		98FC545C1A09BA53002A92A7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		98FC545E1A09BA68002A92A7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,9 +56,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98FC545F1A09BA68002A92A7 /* MobileCoreServices.framework in Frameworks */,
-				98FC545D1A09BA53002A92A7 /* QuartzCore.framework in Frameworks */,
-				98FC545B1A09BA21002A92A7 /* AppiariesSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,8 +72,6 @@
 		98FC54281A09B977002A92A7 = {
 			isa = PBXGroup;
 			children = (
-				98FC545E1A09BA68002A92A7 /* MobileCoreServices.framework */,
-				98FC545C1A09BA53002A92A7 /* QuartzCore.framework */,
 				98FC54331A09B977002A92A7 /* APISFeedSample */,
 				98FC544D1A09B977002A92A7 /* APISFeedSampleTests */,
 				98FC54321A09B977002A92A7 /* Products */,
@@ -101,7 +90,6 @@
 		98FC54331A09B977002A92A7 /* APISFeedSample */ = {
 			isa = PBXGroup;
 			children = (
-				98FC545A1A09BA21002A92A7 /* AppiariesSDK.framework */,
 				98FC54381A09B977002A92A7 /* AppDelegate.h */,
 				98FC54391A09B977002A92A7 /* AppDelegate.m */,
 				98FC543B1A09B977002A92A7 /* ViewController.h */,
@@ -380,7 +368,7 @@
 				);
 				INFOPLIST_FILE = APISFeedSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -396,7 +384,7 @@
 				);
 				INFOPLIST_FILE = APISFeedSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
