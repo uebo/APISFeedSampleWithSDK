@@ -213,24 +213,65 @@
  */
 + (void)apisRemoveAutoLogin;
 /**
- * アプリユーザをアプリ領域へ保存する
- * @brief アプリユーザをアプリ領域へ保存します。
- * @param appUser アプリユーザ
+ * 匿名会員のUUIDをアプリ領域へ保存する
+ * @brief 匿名会員のUUIDをアプリ領域へ保存します。
+ * @param uuid 匿名会員のUUID
+ * @since AppiariesSDK 1.4.0
+ */
++ (void)apisSaveAnonymousUUID:(NSString *)uuid;
+/**
+ * 匿名会員のUUIDを端末のアプリ領域からロードする
+ * @brief 匿名会員のUUIDを端末のアプリ領域からロードします。
+ * @return 匿名会員のUUID
+ * @since AppiariesSDK 1.4.0
+ */
++ (NSString *)apisLoadAnonymousUUID;
+/**
+ * 匿名会員のUUIDを端末のアプリ領域から削除する
+ * @brief 匿名会員のUUIDを端末のアプリ領域から削除します。
+ * @since AppiariesSDK 1.4.0
+ */
++ (void)apisRemoveAnonymousUUID;
+/**
+ * 会員をアプリ領域へ保存する
+ * @brief 会員をアプリ領域へ保存します。
+ * @param appUser 会員
  * @since AppiariesSDK 1.2.0
  */
 + (void)apisSaveAppUser:(APISAppUser *)appUser;
 /**
- * アプリユーザを端末のアプリ領域からロードする
- * @brief アプリユーザを端末のアプリ領域からロードします。
- * @return アプリユーザ
+ * 会員を端末のアプリ領域からロードする
+ * @brief 会員を端末のアプリ領域からロードします。
+ * @return 会員
  * @since AppiariesSDK 1.2.0
  */
 + (APISAppUser *)apisLoadAppUser;
 /**
- * アプリユーザをアプリ領域から削除する
- * @brief アプリユーザをアプリ領域から削除します。
+ * 会員をアプリ領域から削除する
+ * @brief 会員をアプリ領域から削除します。
  * @since AppiariesSDK 1.2.0
  */
 + (void)apisRemoveAppUser;
+
+/**
+* 認証情報をアプリ領域へ保存する
+* @brief 認証情報をアプリ領域へ保存します。
+* @param authData 認証情報
+* @since AppiariesSDK 1.3.0
+*/
++ (void)apisSaveAuthData:(NSDictionary *)authData;
+/**
+* 認証情報を端末のアプリ領域からロードする
+* @brief 認証情報を端末のアプリ領域からロードします。
+* @return 認証情報
+* @since AppiariesSDK 1.3.0
+*/
++ (NSDictionary *)apisLoadAuthData;
+/**
+* 認証情報をアプリ領域から削除する
+* @brief 認証情報をアプリ領域から削除します。
+* @since AppiariesSDK 1.3.0
+*/
++ (void)apisRemoveAuthData;
 
 @end

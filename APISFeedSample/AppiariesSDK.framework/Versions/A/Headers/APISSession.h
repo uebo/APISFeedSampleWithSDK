@@ -37,7 +37,7 @@
  */
 @property (strong, nonatomic) NSString *applicationToken;
 /**
- * アプリユーザ
+ * 会員
  * @since AppiariesSDK 1.2.0
  */
 @property (strong, nonatomic) APISAppUser *appUser;
@@ -84,7 +84,7 @@
  * @param datastoreId データストアID
  * @param applicationId アプリID
  * @param applicationToken アプリトークン
- * @param appUser  アプリユーザ・オブジェクト
+ * @param appUser  会員オブジェクト
  * @since AppiariesSDK 1.2.0
 */
 - (void)configureWithDatastoreId:(NSString *)datastoreId applicationId:(NSString *)applicationId applicationToken:(NSString *)applicationToken appUser:(APISAppUser *)appUser;
@@ -94,7 +94,7 @@
  * @param datastoreId データストアID
  * @param applicationId アプリID
  * @param applicationToken アプリトークン
- * @param appUser  アプリユーザ・オブジェクト
+ * @param appUser  会員オブジェクト
  * @param collectionId コレクションID
  * @since AppiariesSDK 1.2.0
  */
@@ -171,5 +171,13 @@
  * @since AppiariesSDK 1.2.0
  */
 - (BOOL)isLoggedIn;
+
+/**
+ * 匿名会員としてログイン中かどうかを返す
+ * @brief 匿名会員としてログイン中かどうかを返します。 (YES=ログイン中)
+ * @return ログイン中か (YES=ログイン中)
+ * @since AppiariesSDK 1.4.0
+ */
+- (BOOL)isLoggedInAsAnonymous;
 
 @end

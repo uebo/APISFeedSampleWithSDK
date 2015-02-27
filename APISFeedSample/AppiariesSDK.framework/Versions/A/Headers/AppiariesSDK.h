@@ -15,6 +15,7 @@
 #import <AppiariesSDK/APISSequenceAPIClient.h>
 #import <AppiariesSDK/APISSession.h>
 #import <AppiariesSDK/APISAppUser.h>
+#import <AppiariesSDK/APISAnonymousUtils.h>
 #import <AppiariesSDK/APISAppUserAPIClient.h>
 #import <AppiariesSDK/APISWebViewController.h>
 #import <AppiariesSDK/NSError+AppiariesSDK.h>

@@ -8,48 +8,58 @@
 
 
 /**
- * アプリユーザ・オブジェクト
+ * 会員オブジェクト
  * @since AppiariesSDK 1.2.0
  */
 @interface APISAppUser : NSObject <NSCopying, NSCoding>
 #pragma mark - Properties
 /** @name Properties */
 /**
- * アプリユーザID
+ * 会員ID
  * @since AppiariesSDK 1.2.0
  */
 @property (strong, nonatomic) NSString *id;
 /**
- * アプリユーザのログインID
+ * 会員のログインID
  * @since AppiariesSDK 1.2.0
  */
 @property (strong, nonatomic) NSString *loginId;
 /**
- * アプリユーザのログインパスワード
+ * 会員のログインパスワード
  * @since AppiariesSDK 1.2.0
  */
 @property (strong, nonatomic) NSString *password;
 /**
- * アプリユーザのメールアドレス
+ * 会員のメールアドレス
  * @since AppiariesSDK 1.2.0
  */
 @property (strong, nonatomic) NSString *email;
 /**
- * アプリユーザのカスタム属性
+ * 会員のカスタム属性
  * @since AppiariesSDK 1.2.0
  */
 @property (strong, nonatomic) NSDictionary *attributes;
 /**
- * アプリユーザの削除対象カスタム属性リスト
- * @warning アプリユーザのカスタム属性から任意属性を削除する際に指定します。
+ * 会員の削除対象カスタム属性リスト
+ * @warning 会員のカスタム属性から任意属性を削除する際に指定します。
  * @since AppiariesSDK 1.2.0
  */
 @property (strong, nonatomic) NSArray *unsetAttributes;
 /**
- * アプリユーザのストアトークン
+ * 会員のストアトークン
  * @since AppiariesSDK 1.2.0
  */
 @property (strong, nonatomic) NSString *storeToken;
+/**
+ * 自動ログインフラグ (YES=自動ログインする)
+ * @since AppiariesSDK 1.4.0
+ */
+@property (nonatomic) BOOL autoLogin;
+/**
+* 認証データ
+* @since AppiariesSDK 1.3.0
+*/
+@property (strong, nonatomic) NSDictionary *authData;
 
 #pragma mark - Initialization
 /** @name Initialization */

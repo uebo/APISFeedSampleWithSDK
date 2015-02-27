@@ -35,7 +35,7 @@
  */
 @property (strong, nonatomic) NSString *applicationToken;
 /**
- * アプリユーザ
+ * 会員
  * @since AppiariesSDK 1.2.0
  */
 @property (strong, nonatomic) APISAppUser *appUser;

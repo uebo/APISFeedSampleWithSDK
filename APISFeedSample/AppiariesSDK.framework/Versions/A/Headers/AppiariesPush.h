@@ -27,7 +27,7 @@ __attribute__ ((deprecated))
  * @param strAppliToken   アプリトークン
  * @warning アピアリーズ・プッシュ通知APIクラスの使用に先立って**必ず**実行する必要があります。
  * @since AppiariesSDK 1.0.0
- * @deprecated use [APISPushAPIClient configureAPIWithDatastoreId:applicationId:applicationToken: instead.
+ * @deprecated use APISPushAPIClient#configureAPIWithDatastoreId:applicationId:applicationToken: instead.
  */
 + (void)initialize:(NSString *)strDataStoreId appliId:(NSString *)strAppliId appliToken:(NSString *)strAppliToken DEPRECATED_ATTRIBUTE;
 

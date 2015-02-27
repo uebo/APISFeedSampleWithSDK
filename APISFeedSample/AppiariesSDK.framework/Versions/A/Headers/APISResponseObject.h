@@ -21,8 +21,8 @@ extern NSString *APISAPIVersion;
 extern NSString *APISSDKVersion;
 
 /**
-* アピアリーズ Web API レスポンスコード
-*/
+ * アピアリーズ Web API レスポンスコード
+ */
 typedef NS_ENUM(NSInteger, APISResponseStatusCode) {
     /**
      * レスポンスコード - OK (200)
@@ -72,6 +72,12 @@ typedef NS_ENUM(NSInteger, APISResponseStatusCode) {
      * @since AppiariesSDK 1.2.0
      */
     APISResponseStatusCodeConflict = 409,
+    /**
+     * レスポンスコード - 前提条件失敗
+     * <br/>ケース: コントロールパネル上で設定が有効化されていない
+     * @since AppiariesSDK 1.4.0
+     */
+    APISResponseStatusCodePreconditionFailed = 412,
     /**
      * レスポンスコード - サイズ超過
      * <br/>ケース: オブジェクトサイズ上限超え
@@ -132,115 +138,127 @@ typedef NS_ENUM(NSInteger, APISResponseStatusCode) {
      * @since AppiariesSDK 1.2.0
      */
     APISResponseStatusCodeInvalidArgument = -1003,
+    /**
+     * レスポンスコード - 認証キャンセル (authentication cancelled)
+     * <br/>ケース: SNS連携でログインをキャンセルした場合
+     * @since AppiariesSDK 1.3.0
+     */
+    APISResponseStatusCodeAuthenticationCancelled = -1004,
 };
 
 /**
-* レスポンス・メッセージ - OK (200)
-* <br/>ケース: 検索成功, 一括削除成功
-* @since AppiariesSDK 1.2.0
-*/
+ * レスポンス・メッセージ - OK (200)
+ * <br/>ケース: 検索成功, 一括削除成功
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseStatusCodeOKMessage;
 /**
-* レスポンス・メッセージ - 作成成功 (201)
-* <br/>ケース: 登録成功, 置き換え登録成功
-* @since AppiariesSDK 1.2.0
-*/
+ * レスポンス・メッセージ - 作成成功 (201)
+ * <br/>ケース: 登録成功, 置き換え登録成功
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseStatusCodeCreatedMessage;
 /**
-* レスポンス・メッセージ - 成功(返却値なし) (204)
-* <br/>ケース: 更新成功, 削除成功, プッシュ通知成功
-* @since AppiariesSDK 1.2.0
-*/
+ * レスポンス・メッセージ - 成功(返却値なし) (204)
+ * <br/>ケース: 更新成功, 削除成功, プッシュ通知成功
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseStatusCodeNoContentMessage;
 /**
-* レスポンス・メッセージ - 不正なリクエスト
-* <br/>ケース: 不正なフォーマット (Content unspecified, content format invalid)
-* @since AppiariesSDK 1.2.0
-*/
+ * レスポンス・メッセージ - 不正なリクエスト
+ * <br/>ケース: 不正なフォーマット (Content unspecified, content format invalid)
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseStatusCodeBadRequestMessage;
 /**
-* レスポンス・メッセージ - 認証失敗または未認証
-* <br/>ケース: トークン未指定, 認証失敗 (Token unspecified, Authentication failure)
-* @since AppiariesSDK 1.2.0
-*/
+ * レスポンス・メッセージ - 認証失敗または未認証
+ * <br/>ケース: トークン未指定, 認証失敗 (Token unspecified, Authentication failure)
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseStatusCodeUnauthorizedMessage;
 /**
-* レスポンス・メッセージ - リクエスト拒否
-* <br/>ケース: アプリにアクセスする権限がない, コレクションにcreate権限がない, コレクションに格納可能なオブジェクトが"JSONオブジェクト"ではない (No permission to access the app. No permission to create in the collection. The object that can be stored in the collection is not "JSON Data".)
-* @since AppiariesSDK 1.2.0
-*/
+ * レスポンス・メッセージ - リクエスト拒否
+ * <br/>ケース: アプリにアクセスする権限がない, コレクションにcreate権限がない, コレクションに格納可能なオブジェクトが"JSONオブジェクト"ではない (No permission to access the app. No permission to create in the collection. The object that can be stored in the collection is not "JSON Data".)
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseStatusCodeForbiddenMessage;
 /**
-* レスポンス・メッセージ - 対象が見つからない
-* <br/>ケース: コレクション未作成
-* @since AppiariesSDK 1.2.0
-*/
+ * レスポンス・メッセージ - 対象が見つからない
+ * <br/>ケース: コレクション未作成
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseStatusCodeNotFoundMessage;
 /**
-* レスポンス・メッセージ - コンフリクト
-* <br/>ケース: オブジェクト登録済み
-* @since AppiariesSDK 1.2.0
-*/
+ * レスポンス・メッセージ - コンフリクト
+ * <br/>ケース: オブジェクト登録済み
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseStatusCodeConflictMessage;
 /**
-* レスポンス・メッセージ - サイズ超過
-* <br/>ケース: オブジェクトサイズ上限超え
-* @since AppiariesSDK 1.2.0
-*/
+ * レスポンス・メッセージ - 前提条件失敗
+ * <br/>ケース: コントロールパネルで設定が有効化されていない
+ * @since AppiariesSDK 1.4.0
+ */
+extern NSString *APISResponseStatusCodePreconditionFailedMessage;
+/**
+ * レスポンス・メッセージ - サイズ超過
+ * <br/>ケース: オブジェクトサイズ上限超え
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseStatusCodeRequestEntityTooLargeMessage;
 /**
-* レスポンス・メッセージ - 処理不可
-* <br/>ケース: コンテント不適切
-* @since AppiariesSDK 1.2.0
-*/
+ * レスポンス・メッセージ - 処理不可
+ * <br/>ケース: コンテント不適切
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseStatusCodeUnprocessableEntityMessage;
 /**
-* レスポンス・メッセージ - ロックされている
-* <br/>ケース: アカウントがロックされている
-* @since AppiariesSDK 1.2.0
-*/
+ * レスポンス・メッセージ - ロックされている
+ * <br/>ケース: アカウントがロックされている
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseStatusCodeLockedMessage;
 /**
-* レスポンス・メッセージ - 内部サーバエラー
-* <br/>ケース: 予期しないエラー (Unexpected error)
-* @since AppiariesSDK 1.2.0
-*/
+ * レスポンス・メッセージ - 内部サーバエラー
+ * <br/>ケース: 予期しないエラー (Unexpected error)
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseStatusCodeInternalServerErrorMessage;
 /**
-* レスポンス・メッセージ - ストレージ容量不足
-* <br/>ケース: 使用可能ストレージ容量超過 (Available storage capacity exceeded)
-* @since AppiariesSDK 1.2.0
-*/
+ * レスポンス・メッセージ - ストレージ容量不足
+ * <br/>ケース: 使用可能ストレージ容量超過 (Available storage capacity exceeded)
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseStatusCodeInsufficientStorageMessage;
 /**
-* レスポンス・メッセージ - 通信エラー (connection error)
-* <br/>ケース: ネットワーク接続不可環境下でのAPI呼び出し, 通信瞬断
-* @since AppiariesSDK 1.2.0
-*/
+ * レスポンス・メッセージ - 通信エラー (connection error)
+ * <br/>ケース: ネットワーク接続不可環境下でのAPI呼び出し, 通信瞬断
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseStatusCodeHttpConnectionErrorMessage;
 /**
-* レスポンス・メッセージ - 不正なID (invalid id)
-* <br/>ケース: IDとして許可していない文字列を含むIDの取得・生成
-* @since AppiariesSDK 1.2.0
-*/
+ * レスポンス・メッセージ - 不正なID (invalid id)
+ * <br/>ケース: IDとして許可していない文字列を含むIDの取得・生成
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseStatusCodeInvalidIdMessage;
 /**
-* レスポンス・メッセージ - 不正なトークン (invalid token)
-* <br/>ケース: トークンとして許可していない文字列を含むトークンの取得・生成
-* @since AppiariesSDK 1.2.0
-*/
+ * レスポンス・メッセージ - 不正なトークン (invalid token)
+ * <br/>ケース: トークンとして許可していない文字列を含むトークンの取得・生成
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseStatusCodeInvalidTokenMessage;
 /**
-* レスポンス・メッセージ - 不正なパスコンポーネント (invalid path component)
-* <br/>ケース: URIとして許可していない文字列を含むURIの取得・生成
-* @since AppiariesSDK 1.2.0
-*/
+ * レスポンス・メッセージ - 不正なパスコンポーネント (invalid path component)
+ * <br/>ケース: URIとして許可していない文字列を含むURIの取得・生成
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseStatusCodeInvalidPathSegmentMessage;
 /**
-* レスポンス・メッセージ - 不正な引数 (invalid argument)
-* <br/>ケース: 引数として許可していない文字列を含む引数が渡された場合
-* @since AppiariesSDK 1.2.0
-*/
+ * レスポンス・メッセージ - 不正な引数 (invalid argument)
+ * <br/>ケース: 引数として許可していない文字列を含む引数が渡された場合
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseStatusCodeInvalidArgumentMessage;
 
 #pragma mark - Constants (for JSON object)
@@ -266,14 +284,14 @@ extern NSString *APISResponseDetailCodeJsonObjectIdIsInvalidFormat;
  */
 extern NSString *APISResponseDetailCodeJsonObjectDuplicateId;
 /**
-* JSONオブジェクト - コンテントボディ - コンテント名不適切 (0060002)
-* @since AppiariesSDK 1.2.0
-*/
+ * JSONオブジェクト - コンテントボディ - コンテント名不適切 (0060002)
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseDetailCodeJsonObjectContentBodyInvalidContentName;
 /**
-* JSONオブジェクト - コンテントボディ - LF, CR, TAB を除く制御文字が含まれている (0060011)
-* @since AppiariesSDK 1.2.0
-*/
+ * JSONオブジェクト - コンテントボディ - LF, CR, TAB を除く制御文字が含まれている (0060011)
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseDetailCodeJsonObjectContentBodyContainedControlCharacter;
 /**
  * JSONオブジェクト - フィールド全般 - フィールド不足 (0070001)
@@ -397,19 +415,19 @@ extern NSString *APISResponseDetailCodePushNotificationMissingField;
  */
 extern NSString *APISResponseDetailCodePushNotificationInvalidFieldName;
 /**
-* プッシュ通知 - デバイスIDが空の場合のエラーコード (0081101)
-* @since AppiariesSDK 1.2.0
-*/
+ * プッシュ通知 - デバイスIDが空の場合のエラーコード (0081101)
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseDetailCodePushNotificationDeviceIdIsEmpty;
 /**
-* プッシュ通知 - デバイスIDが文字列でない場合のエラーコード (0081102)
-* @since AppiariesSDK 1.2.0
-*/
+ * プッシュ通知 - デバイスIDが文字列でない場合のエラーコード (0081102)
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseDetailCodePushNotificationDeviceIdIsNotValidString;
 /**
-* プッシュ通知 - デバイス属性に制御文字が含まれている場合のエラーコード (0080103)
-* @since AppiariesSDK 1.2.0
-*/
+ * プッシュ通知 - デバイス属性に制御文字が含まれている場合のエラーコード (0080103)
+ * @since AppiariesSDK 1.2.0
+ */
 extern NSString *APISResponseDetailCodePushNotificationDeviceAttributesContainedControlCharacter;
 
 

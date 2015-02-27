@@ -70,6 +70,12 @@
  * @param viewController 画面表示中のviewControllerインスタンス
  * @since AppiariesSDK 1.2.0
  */
-- (void)apisWebViewControllerWillDismiss:(UIViewController<APISPushNotificationSupport> *)viewController;
+- (void)apisWebViewControllerWillDismiss:(UIViewController *)viewController;
+
+@optional
+- (BOOL)apisWebViewController:(UIViewController *)controller webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
+- (void)apisWebViewController:(UIViewController *)controller webViewDidStartLoad:(UIWebView *)webView;
+- (void)apisWebViewController:(UIViewController *)controller webViewDidFinishLoad:(UIWebView *)webView;
+- (void)apisWebViewController:(UIViewController *)controller webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;
 
 @end
