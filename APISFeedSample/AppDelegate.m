@@ -17,8 +17,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    //アピアリーズのセッションを初期化する
-    [[APISSession sharedSession] configureWithDatastoreId:@"_sandbox" applicationId:@"APISFeedSample" applicationToken:@"app60433c173d722dc86abc41c6da"];
+    //SDKを有効化する
+    baas.config.datastoreID = @"_sandbox";
+    baas.config.applicationID = @"APISFeedSample";
+    baas.config.applicationToken = @"app60433c173d722dc86abc41c6da";
+    [baas activate];
     
     // APNs: プッシュ通知機能利用登録（デバイストークン発行要求）
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
@@ -67,13 +70,16 @@
 // APNs: デバイストークン発行成功時ハンドラ
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSLog(@"APNs: デバイストークン発行成功 [デバイストークン:%@]", [deviceToken description]);
-    NSDictionary *attributes = @{ // 配信端末の絞り込み検索に使用するカスタム属性
-                                 @"myattr1-key" : @"myattr1val",
-                                 @"myattr2-key" : @"myattr2val"
-                                 };
-    // デバイストークン登録APIの実行
-    APISPushAPIClient *api = [[APISSession sharedSession] createPushAPIClient];
-    [api registerDeviceToken:deviceToken attributes:attributes];
+    
+    // デバイストークン登録
+    ABDevice *device = [ABDevice deviceWithRawDeviceToken:deviceToken];
+    device[@"ageGroup"]       = @10;
+    device[@"gender"]         = @"female";
+    device[@"favorites"]      = @{@"brands" : @[@"Appiaries", @"BaaS"]};
+    device[@"point"]          = @0;
+    device[@"withdrawn"]      = @(NO);
+    device[@"lastAccessDate"] = [NSDate date];
+    [device register];
 }
 
 // APNs: デバイストークン発行失敗時ハンドラ

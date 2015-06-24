@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		980C8C421AA013D600574D33 /* AppiariesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 980C8C411AA013D600574D33 /* AppiariesSDK.framework */; };
 		984B241C1A0CFB38009DB9A4 /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 984B241B1A0CFB38009DB9A4 /* CollectionViewCell.m */; };
 		984B241F1A0CFB58009DB9A4 /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 984B241E1A0CFB58009DB9A4 /* UIImage+Extensions.m */; };
 		984B24221A0CFB6A009DB9A4 /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 984B24211A0CFB6A009DB9A4 /* PostViewController.m */; };
+		98E1ACAC1B3B000A00F4E6E9 /* AppiariesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98E1ACAB1B3B000A00F4E6E9 /* AppiariesSDK.framework */; };
 		98FC54371A09B977002A92A7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FC54361A09B977002A92A7 /* main.m */; };
 		98FC543A1A09B977002A92A7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FC54391A09B977002A92A7 /* AppDelegate.m */; };
 		98FC543D1A09B977002A92A7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FC543C1A09B977002A92A7 /* ViewController.m */; };
@@ -33,13 +33,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		980C8C411AA013D600574D33 /* AppiariesSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppiariesSDK.framework; sourceTree = "<group>"; };
 		984B241A1A0CFB37009DB9A4 /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
 		984B241B1A0CFB38009DB9A4 /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
 		984B241D1A0CFB58009DB9A4 /* UIImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extensions.h"; sourceTree = "<group>"; };
 		984B241E1A0CFB58009DB9A4 /* UIImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extensions.m"; sourceTree = "<group>"; };
 		984B24201A0CFB6A009DB9A4 /* PostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostViewController.h; sourceTree = "<group>"; };
 		984B24211A0CFB6A009DB9A4 /* PostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostViewController.m; sourceTree = "<group>"; };
+		98E1ACAB1B3B000A00F4E6E9 /* AppiariesSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppiariesSDK.framework; sourceTree = "<group>"; };
 		98FC54311A09B977002A92A7 /* APISFeedSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APISFeedSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98FC54351A09B977002A92A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98FC54361A09B977002A92A7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -62,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				980C8C421AA013D600574D33 /* AppiariesSDK.framework in Frameworks */,
+				98E1ACAC1B3B000A00F4E6E9 /* AppiariesSDK.framework in Frameworks */,
 				98FC545F1A09BA68002A92A7 /* MobileCoreServices.framework in Frameworks */,
 				98FC545D1A09BA53002A92A7 /* QuartzCore.framework in Frameworks */,
 			);
@@ -101,7 +101,7 @@
 		98FC54331A09B977002A92A7 /* APISFeedSample */ = {
 			isa = PBXGroup;
 			children = (
-				980C8C411AA013D600574D33 /* AppiariesSDK.framework */,
+				98E1ACAB1B3B000A00F4E6E9 /* AppiariesSDK.framework */,
 				98FC54381A09B977002A92A7 /* AppDelegate.h */,
 				98FC54391A09B977002A92A7 /* AppDelegate.m */,
 				98FC543B1A09B977002A92A7 /* ViewController.h */,

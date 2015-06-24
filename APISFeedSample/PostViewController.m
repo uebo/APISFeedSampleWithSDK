@@ -60,55 +60,47 @@
 
     //登録する画像
     NSData *imageData = UIImageJPEGRepresentation(self.selectedImage, 0.5);
-    //パラメータ
-    NSString *fileName = @"upload.jpeg";
-    NSString *mimeType = @"image/jpeg";
-    NSDictionary *parameters = @{@"_type": mimeType,
-                                 @"_filename": fileName,
-                                 };
-    //File APIの呼び出し
-    __weak typeof(self) weakSelf = self;
+
     //コレクションID
     NSString *collectionId = @"imageFile";
-    //APIクライアントを作成
-    APISFileAPIClient *api = [[APISSession sharedSession] createFileAPIClientWithCollectionId:collectionId];
-    [api createBinaryObjectWithId:nil filename:fileName binary:imageData meta:parameters
-        success:^(APISResponseObject *response) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            //responseオブジェクトからIDを取得
-            NSString *objectId = [response.data objectForKey:@"_id"];
+    //ファイルを作成する
+    ABFile *file = [ABFile fileWithCollectionID:collectionId];
+    file.data = imageData;
+    file.contentType = @"image/jpeg";
+    [file saveWithBlock:^(ABResult *result, ABError *error) {
+        if (error) {
+            NSLog(@"%@", error.description);
+            self.saveButtonItem.enabled = YES;
+        } else {
+            NSLog(@"%@",result.data);
+            
+            //resultオブジェクトからIDを取得
+            NSString *objectId = result.data[@"_id"];;
             
             //JSONデータ作成処理へ
-            [weakSelf postDataWithObjectId:objectId];
-        } failure:^(NSError *error) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            NSLog(@"%@", error);
-            self.saveButtonItem.enabled = YES;
+            [self postDataWithObjectId:objectId];
         }
-    ];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    }];
 }
 
 - (void)postDataWithObjectId:(NSString*)objectId
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
-    //日時
-    NSNumber *dateNumber = [NSNumber numberWithUnsignedLong:(unsigned long)[[NSDate date] timeIntervalSince1970]];
-    
-    //パラメータ
-    NSDictionary *parameters = @{@"imageObjectId": objectId ?:@"",
-                                 @"comment": self.commentTextView.text ?:@"",
-                                 @"createdAt": dateNumber
-                                 };
     //コレクションID
     NSString *collectionId = @"post";
     
-    //JSON APIの呼び出し
-    APISJsonAPIClient *api = [[APISSession sharedSession] createJsonAPIClientWithCollectionId:collectionId];
-    [api createJsonObjectWithId:nil data:parameters
-        success:^(APISResponseObject *response) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            
+    //DBデータの作成
+    ABDBObject *object = [ABDBObject objectWithCollectionID:collectionId];
+    object[@"imageObjectId"] = objectId ?:@"";
+    object[@"comment"] = self.commentTextView.text ?:@"";
+    object[@"createdAt"] = [NSNumber numberWithUnsignedLong:(unsigned long)[[NSDate date] timeIntervalSince1970]];
+    
+    [object saveWithBlock:^(ABResult *result, ABError *error) {
+        if (error) {
+            NSLog(@"error: %@",error.description);
+        } else {
             //成功表示
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"成功!"
                                                             message:@"登録しました！"
@@ -118,12 +110,10 @@
             [alert show];
             //閉じる
             [self dismissViewControllerAnimated:YES completion:nil];
-        } failure:^(NSError *error) {
-            NSLog(@"error: %@",error);
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            self.saveButtonItem.enabled = YES;
         }
-    ];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        self.saveButtonItem.enabled = YES;
+    }];
 }
 
 - (IBAction)photoButtonAction:(id)sender {

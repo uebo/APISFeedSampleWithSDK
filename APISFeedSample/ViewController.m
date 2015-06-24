@@ -17,6 +17,8 @@
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 //JSON APIから取得するデータを格納
 @property (strong, nonatomic) NSArray *collections;
+//取得した画像をキャッシュする領域
+@property (strong, nonatomic) NSMutableDictionary *imageCache;
 
 @end
 
@@ -26,7 +28,8 @@
     [super viewDidLoad];
     
     //配列を初期化
-    self.collections = [[NSMutableArray alloc] init];
+    self.collections = [NSArray new];
+    self.imageCache = [NSMutableDictionary new];
     
     //RefreshControl
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -53,33 +56,45 @@
     CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
     //取り出し
-    NSDictionary *dict = self.collections[(NSUInteger)indexPath.row];
+    ABDBObject *dict = self.collections[(NSUInteger)indexPath.row];
     
     //cellのサイズ調整
     //http://stackoverflow.com/questions/24750158/autoresizing-issue-of-uicollectionviewcell-contentviews-frame-in-storyboard-pro
     cell.contentView.frame = cell.bounds;
     cell.contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    //cell画像（本来は画像データをキャッシュするのが好ましい）
+    //cell画像
     [cell.mainImageView setImage:nil];
     
-    //画像データをFileオブジェクトから取得する
-    //コレクションID
-    NSString *collectionId = @"imageFile";
-    
-    //APIClientオブジェクトの作成
-    APISFileAPIClient *api = [[APISSession sharedSession] createFileAPIClientWithCollectionId:collectionId];
-    [api retrieveBinaryObjectBinaryWithId:dict[@"imageObjectId"]
-        success:^(APISResponseObject *response) {
-            //レスポンスのバイナリデータを取得
-            UIImage *image = [[UIImage alloc]initWithData:(NSData*)response.data[@"_bin"]];
-            
-            //画像をCellに設定
-            [cell.mainImageView setImage:image];
-        } failure:^(NSError *error) {
-            NSLog(@"%@", error);
-        }
-    ];
+    //キャッシュがある場合はキャッシュから読み込み、ない場合はFileオブジェクトを取得する
+    if ([self.imageCache objectForKey:indexPath] != nil) {
+        [cell.mainImageView setImage:[self.imageCache objectForKey:indexPath]];
+    } else {
+        //画像データをFileオブジェクトから取得する
+        //コレクションID
+        NSString *collectionId = @"imageFile";
+        
+        //ファイルの取得
+        ABFile *file = [ABFile fileWithCollectionID:collectionId];
+        file.ID = dict[@"imageObjectId"];
+        NSLog(@"%@", file.ID);
+        [baas.file fetch:file block:^(ABResult *result, ABError *error) {
+            if (error) {
+                NSLog(@"%@", error.description);
+            } else {
+                //ファイルオブジェクト生成
+                ABFile *fetched = result.data;
+                //URLから画像ファイルを取得
+                [self processImageDataWithURLString:fetched.url andBlock:^(NSData *imageData) {
+                    //画像をCellに設定
+                    UIImage *image = [[UIImage alloc]initWithData:imageData];
+                    [cell.mainImageView setImage:image];
+                    //キャッシュ領域に保存
+                    [self.imageCache setObject:image forKey:indexPath];
+                }];
+            }
+        }];
+    }
     
     //テキスト
     cell.commentLabel.text = dict[@"comment"];
@@ -102,41 +117,36 @@
     //コレクションID
     NSString *collectionId = @"post";
     
-    //APIClientオブジェクトの作成
-    APISJsonAPIClient *api = [[APISSession sharedSession] createJsonAPIClientWithCollectionId:collectionId];
-
-    //JSON Dataの条件を指定します。今回は絞込条件なし
-    APISQueryCondition *query = [[APISQueryCondition alloc] init];
-//    [query setEqualValue:@"" forKey:@""];
+    //抽出条件を指定
+    ABQuery *query = [[ABQuery query] from:collectionId];
     
-    //JSONオブジェクトを取得する
-    [api searchJsonObjectsWithQueryCondition:query
-        success:^(APISResponseObject *response) {
-            //responseオブジェクトの中身をデバッグ
-            NSLog(@"%@", response.data);
-            
-            //responseオブジェクトから、データを取得
-            NSArray *objs = [response.data objectForKey:@"_objs"];
-            
-            NSMutableArray *m = [NSMutableArray new];
-            for (NSDictionary *dict in objs) {
-                //配列にデータを追加
-                [m addObject:dict];
-            }
-            self.collections = [m mutableCopy];
-            
+    //DBを検索する
+    [baas.db findWithQuery:query block:^(ABResult *result, ABError *error) {
+        if (error) {
+            NSLog(@"%@", error.description);
+        } else {
+            NSLog(@"%@", result.data);
+            self.collections = result.data;
             //テーブルを更新
             [self.collectionView reloadData];
-            
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            [self.refreshControl endRefreshing];
-            
-        } failure:^(NSError *error) {
-            NSLog(@"%@", error);
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            [self.refreshControl endRefreshing];
         }
-    ];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        [self.refreshControl endRefreshing];
+    }];    
+}
+
+- (void)processImageDataWithURLString:(NSString *)urlString andBlock:(void (^)(NSData *imageData))processImage
+{
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_queue_t q_main = dispatch_get_main_queue();
+    dispatch_async(q_global, ^{
+        NSData * imageData = [NSData dataWithContentsOfURL:url];
+        dispatch_async(q_main, ^{
+            processImage(imageData);
+        });
+    });
 }
 
 @end
