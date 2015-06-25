@@ -7,10 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AppiariesSDK/AppiariesSDK.h>
+//FIXME: SDKをインポートする
+//#import <AppiariesSDK/AppiariesSDK.h>
 
-@interface ImageFile : ABFile <ABManagedProtocol>
+//FIXME: ABFileを継承、protocolを指定
+//@interface ImageFile : ABFile <ABManagedProtocol>
+@interface ImageFile : NSObject
 
-@property (nonatomic) CGSize size;
+//@property (nonatomic) CGSize size;
 
 @end

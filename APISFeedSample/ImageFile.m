@@ -10,8 +10,10 @@
 
 @implementation ImageFile
 
-@dynamic size;
+//FIXME: dynamic宣言する
+//@dynamic size;
 
+//アピアリーズのコレクションIDを設定
 + (NSString *)collectionID { return @"imageFile"; }
 
 @end

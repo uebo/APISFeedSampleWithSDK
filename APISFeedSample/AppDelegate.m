@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import <AppiariesSDK/AppiariesSDK.h>
+//FIXME: SDKをインポートする
+//#import <AppiariesSDK/AppiariesSDK.h>
 #import "Post.h"
 #import "ImageFile.h"
 
@@ -19,13 +20,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    //SDKを有効化する
-    baas.config.datastoreID = @"_sandbox";
-    baas.config.applicationID = @"APISFeedSample";
-    baas.config.applicationToken = @"app60433c173d722dc86abc41c6da";
-    [baas activate];
-    //ユーザ定義クラスを登録する
-    [baas registerClasses:@[[Post class], [ImageFile class]]];
+    //FIXME: SDKを有効化する
+//    baas.config.datastoreID = @"_sandbox";
+//    baas.config.applicationID = @"APP_ID";
+//    baas.config.applicationToken = @"TOKEN";
+//    [baas activate];
+    //FIXME: ユーザ定義クラスを登録する
+//    [baas registerClasses:@[[Post class], [ImageFile class]]];
     
     // APNs: プッシュ通知機能利用登録（デバイストークン発行要求）
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
@@ -75,15 +76,15 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSLog(@"APNs: デバイストークン発行成功 [デバイストークン:%@]", [deviceToken description]);
     
-    // デバイストークン登録
-    ABDevice *device = [ABDevice deviceWithRawDeviceToken:deviceToken];
-    device[@"ageGroup"]       = @10;
-    device[@"gender"]         = @"female";
-    device[@"favorites"]      = @{@"brands" : @[@"Appiaries", @"BaaS"]};
-    device[@"point"]          = @0;
-    device[@"withdrawn"]      = @(NO);
-    device[@"lastAccessDate"] = [NSDate date];
-    [device register];
+    //FIXME: デバイストークン登録
+//    ABDevice *device = [ABDevice deviceWithRawDeviceToken:deviceToken];
+//    device[@"ageGroup"]       = @10;
+//    device[@"gender"]         = @"female";
+//    device[@"favorites"]      = @{@"brands" : @[@"Appiaries", @"BaaS"]};
+//    device[@"point"]          = @0;
+//    device[@"withdrawn"]      = @(NO);
+//    device[@"lastAccessDate"] = [NSDate date];
+//    [device register];
 }
 
 // APNs: デバイストークン発行失敗時ハンドラ
