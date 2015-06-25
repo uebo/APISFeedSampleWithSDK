@@ -9,6 +9,8 @@
 #import "PostViewController.h"
 #import "UIImage+Extensions.h"
 #import <AppiariesSDK/AppiariesSDK.h>
+#import "Post.h"
+#import "ImageFile.h"
 
 @interface PostViewController ()<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -61,21 +63,21 @@
     //登録する画像
     NSData *imageData = UIImageJPEGRepresentation(self.selectedImage, 0.5);
 
-    //コレクションID
-    NSString *collectionId = @"imageFile";
     //ファイルを作成する
-    ABFile *file = [ABFile fileWithCollectionID:collectionId];
-    file.data = imageData;
-    file.contentType = @"image/jpeg";
-    [file saveWithBlock:^(ABResult *result, ABError *error) {
+    ImageFile *imageFile = [ImageFile new];
+    imageFile.data = imageData;
+    imageFile.contentType = @"image/jpeg";
+    imageFile.name = @"upload.jpeg";
+    [imageFile saveWithBlock:^(ABResult *result, ABError *error) {
         if (error) {
             NSLog(@"%@", error.description);
             self.saveButtonItem.enabled = YES;
         } else {
             NSLog(@"%@",result.data);
             
-            //resultオブジェクトからIDを取得
-            NSString *objectId = result.data[@"_id"];;
+            //Fileで作成したIDを取得する
+            ImageFile *imageFile = result.data;
+            NSString *objectId = imageFile.ID;
             
             //JSONデータ作成処理へ
             [self postDataWithObjectId:objectId];
@@ -88,16 +90,11 @@
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
-    //コレクションID
-    NSString *collectionId = @"post";
-    
     //DBデータの作成
-    ABDBObject *object = [ABDBObject objectWithCollectionID:collectionId];
-    object[@"imageObjectId"] = objectId ?:@"";
-    object[@"comment"] = self.commentTextView.text ?:@"";
-    object[@"createdAt"] = [NSNumber numberWithUnsignedLong:(unsigned long)[[NSDate date] timeIntervalSince1970]];
-    
-    [object saveWithBlock:^(ABResult *result, ABError *error) {
+    Post *post = [Post post];
+    post.imageObjectId = objectId ?:@"";
+    post.comment = self.commentTextView.text ?:@"";
+    [post saveWithBlock:^(ABResult *result, ABError *error) {
         if (error) {
             NSLog(@"error: %@",error.description);
         } else {

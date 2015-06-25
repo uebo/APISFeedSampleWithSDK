@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import "CollectionViewCell.h"
 #import <AppiariesSDK/AppiariesSDK.h>
+#import "Post.h"
+#import "ImageFile.h"
 
 @interface ViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -56,7 +58,7 @@
     CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
     //取り出し
-    ABDBObject *dict = self.collections[(NSUInteger)indexPath.row];
+    Post *post = self.collections[(NSUInteger)indexPath.row];
     
     //cellのサイズ調整
     //http://stackoverflow.com/questions/24750158/autoresizing-issue-of-uicollectionviewcell-contentviews-frame-in-storyboard-pro
@@ -70,20 +72,16 @@
     if ([self.imageCache objectForKey:indexPath] != nil) {
         [cell.mainImageView setImage:[self.imageCache objectForKey:indexPath]];
     } else {
-        //画像データをFileオブジェクトから取得する
-        //コレクションID
-        NSString *collectionId = @"imageFile";
-        
+        //画像データをFileオブジェクトから取得する        
         //ファイルの取得
-        ABFile *file = [ABFile fileWithCollectionID:collectionId];
-        file.ID = dict[@"imageObjectId"];
-        NSLog(@"%@", file.ID);
-        [baas.file fetch:file block:^(ABResult *result, ABError *error) {
+        ImageFile *imageFile = [ImageFile new];
+        imageFile.ID = post.imageObjectId;
+        [baas.file fetch:imageFile block:^(ABResult *result, ABError *error) {
             if (error) {
                 NSLog(@"%@", error.description);
             } else {
                 //ファイルオブジェクト生成
-                ABFile *fetched = result.data;
+                ImageFile *fetched = result.data;
                 //URLから画像ファイルを取得
                 [self processImageDataWithURLString:fetched.url andBlock:^(NSData *imageData) {
                     //画像をCellに設定
@@ -97,7 +95,7 @@
     }
     
     //テキスト
-    cell.commentLabel.text = dict[@"comment"];
+    cell.commentLabel.text = post.comment;
     
     return cell;
 }
@@ -114,11 +112,9 @@
     [self.refreshControl beginRefreshing];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
-    //コレクションID
-    NSString *collectionId = @"post";
-    
     //抽出条件を指定
-    ABQuery *query = [[ABQuery query] from:collectionId];
+    ABQuery *query = [Post query];
+//  ABQuery *query = [[Post query] where:@"comment" equalsTo:@"aaaa"];
     
     //DBを検索する
     [baas.db findWithQuery:query block:^(ABResult *result, ABError *error) {

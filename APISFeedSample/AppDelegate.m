@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import <AppiariesSDK/AppiariesSDK.h>
+#import "Post.h"
+#import "ImageFile.h"
 
 @interface AppDelegate ()
 
@@ -22,6 +24,8 @@
     baas.config.applicationID = @"APISFeedSample";
     baas.config.applicationToken = @"app60433c173d722dc86abc41c6da";
     [baas activate];
+    //ユーザ定義クラスを登録する
+    [baas registerClasses:@[[Post class], [ImageFile class]]];
     
     // APNs: プッシュ通知機能利用登録（デバイストークン発行要求）
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {

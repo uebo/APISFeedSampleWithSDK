@@ -10,7 +10,9 @@
 		984B241C1A0CFB38009DB9A4 /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 984B241B1A0CFB38009DB9A4 /* CollectionViewCell.m */; };
 		984B241F1A0CFB58009DB9A4 /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 984B241E1A0CFB58009DB9A4 /* UIImage+Extensions.m */; };
 		984B24221A0CFB6A009DB9A4 /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 984B24211A0CFB6A009DB9A4 /* PostViewController.m */; };
-		98E1ACAC1B3B000A00F4E6E9 /* AppiariesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98E1ACAB1B3B000A00F4E6E9 /* AppiariesSDK.framework */; };
+		98CE2DD11B3C17E70026F5C7 /* AppiariesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98CE2DD01B3C17E70026F5C7 /* AppiariesSDK.framework */; };
+		98E1ACAF1B3B011F00F4E6E9 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E1ACAE1B3B011F00F4E6E9 /* Post.m */; };
+		98E1ACB41B3B097D00F4E6E9 /* ImageFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E1ACB31B3B097D00F4E6E9 /* ImageFile.m */; };
 		98FC54371A09B977002A92A7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FC54361A09B977002A92A7 /* main.m */; };
 		98FC543A1A09B977002A92A7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FC54391A09B977002A92A7 /* AppDelegate.m */; };
 		98FC543D1A09B977002A92A7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FC543C1A09B977002A92A7 /* ViewController.m */; };
@@ -39,7 +41,11 @@
 		984B241E1A0CFB58009DB9A4 /* UIImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extensions.m"; sourceTree = "<group>"; };
 		984B24201A0CFB6A009DB9A4 /* PostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostViewController.h; sourceTree = "<group>"; };
 		984B24211A0CFB6A009DB9A4 /* PostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostViewController.m; sourceTree = "<group>"; };
-		98E1ACAB1B3B000A00F4E6E9 /* AppiariesSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppiariesSDK.framework; sourceTree = "<group>"; };
+		98CE2DD01B3C17E70026F5C7 /* AppiariesSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppiariesSDK.framework; sourceTree = "<group>"; };
+		98E1ACAD1B3B011F00F4E6E9 /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
+		98E1ACAE1B3B011F00F4E6E9 /* Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
+		98E1ACB21B3B097D00F4E6E9 /* ImageFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFile.h; sourceTree = "<group>"; };
+		98E1ACB31B3B097D00F4E6E9 /* ImageFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFile.m; sourceTree = "<group>"; };
 		98FC54311A09B977002A92A7 /* APISFeedSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APISFeedSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98FC54351A09B977002A92A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98FC54361A09B977002A92A7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -62,7 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98E1ACAC1B3B000A00F4E6E9 /* AppiariesSDK.framework in Frameworks */,
+				98CE2DD11B3C17E70026F5C7 /* AppiariesSDK.framework in Frameworks */,
 				98FC545F1A09BA68002A92A7 /* MobileCoreServices.framework in Frameworks */,
 				98FC545D1A09BA53002A92A7 /* QuartzCore.framework in Frameworks */,
 			);
@@ -101,7 +107,7 @@
 		98FC54331A09B977002A92A7 /* APISFeedSample */ = {
 			isa = PBXGroup;
 			children = (
-				98E1ACAB1B3B000A00F4E6E9 /* AppiariesSDK.framework */,
+				98CE2DD01B3C17E70026F5C7 /* AppiariesSDK.framework */,
 				98FC54381A09B977002A92A7 /* AppDelegate.h */,
 				98FC54391A09B977002A92A7 /* AppDelegate.m */,
 				98FC543B1A09B977002A92A7 /* ViewController.h */,
@@ -110,6 +116,10 @@
 				984B24211A0CFB6A009DB9A4 /* PostViewController.m */,
 				984B241A1A0CFB37009DB9A4 /* CollectionViewCell.h */,
 				984B241B1A0CFB38009DB9A4 /* CollectionViewCell.m */,
+				98E1ACAD1B3B011F00F4E6E9 /* Post.h */,
+				98E1ACAE1B3B011F00F4E6E9 /* Post.m */,
+				98E1ACB21B3B097D00F4E6E9 /* ImageFile.h */,
+				98E1ACB31B3B097D00F4E6E9 /* ImageFile.m */,
 				984B241D1A0CFB58009DB9A4 /* UIImage+Extensions.h */,
 				984B241E1A0CFB58009DB9A4 /* UIImage+Extensions.m */,
 				98FC543E1A09B977002A92A7 /* Main.storyboard */,
@@ -247,11 +257,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				98FC543D1A09B977002A92A7 /* ViewController.m in Sources */,
+				98E1ACB41B3B097D00F4E6E9 /* ImageFile.m in Sources */,
 				98FC543A1A09B977002A92A7 /* AppDelegate.m in Sources */,
 				984B24221A0CFB6A009DB9A4 /* PostViewController.m in Sources */,
 				984B241C1A0CFB38009DB9A4 /* CollectionViewCell.m in Sources */,
 				984B241F1A0CFB58009DB9A4 /* UIImage+Extensions.m in Sources */,
 				98FC54371A09B977002A92A7 /* main.m in Sources */,
+				98E1ACAF1B3B011F00F4E6E9 /* Post.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
