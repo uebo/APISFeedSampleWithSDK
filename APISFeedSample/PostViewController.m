@@ -114,6 +114,9 @@
 }
 
 - (IBAction)photoButtonAction:(id)sender {
+    //キーボードを閉じる
+    [self.commentTextView resignFirstResponder];
+    
     // カメラのアクションシートを作る
     UIActionSheet*  sheet;
     sheet = [[UIActionSheet alloc]

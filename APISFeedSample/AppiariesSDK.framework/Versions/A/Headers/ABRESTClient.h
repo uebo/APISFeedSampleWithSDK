@@ -13,6 +13,19 @@ typedef void (^ABRESTClientCallbackBlock)(ABResult *result, ABError *error);
 typedef void (^ABRESTClientResponseFilterBlock)(ABResult **result, ABError **error);
 typedef void (^ABRESTClientProgressBlock)(float progress);
 
+
+@protocol ABRequestProtocol
+#pragma mark - Properties
+@property (copy, nonatomic) NSURLRequest *request;
+@property (copy, nonatomic) NSURLResponse *response;
+@property (strong, nonatomic) NSMutableData *data;
+@property (copy, nonatomic) ABResultBlock resultBlock;
+@property (copy, nonatomic) ABProgressBlock progressBlock;
+@property (strong, nonatomic) NSURLSession *session;
+@property (nonatomic, getter=isCancelled) BOOL cancelled;
+@end
+
+
 /*!
 REST API クライアント
  */
@@ -81,8 +94,15 @@ REST API クライアント
 - (Async)PATCH:(NSString *)url body:(NSData *)body headers:(NSDictionary *)headers callback:(ABRESTClientCallbackBlock)callback;
 - (Async)PATCH:(NSString *)url body:(NSData *)body headers:(NSDictionary *)headers callback:(ABRESTClientCallbackBlock)callback progressCallback:(ABRESTClientProgressBlock)progressCallback;
 
-@end
+#pragma mark - MISC
+- (void)registerRequest:(id<ABRequestProtocol>)request;
+- (void)unregisterRequest:(id<ABRequestProtocol>)request;
+- (void)cancelRequestIfNeeded:(id<ABRequestProtocol>)request;
+- (void)cancelRequestIfNeededWithUrl:(NSURL *)url;
+- (void)cancelRequestIfNeededWithUrlString:(NSString *)url;
+- (void)cancelRequestIfNeededWithUrlRegularExpressionPattern:(NSString *)pattern;
 
+@end
 
 /*!
  アピアリーズ Web API レスポンスコード

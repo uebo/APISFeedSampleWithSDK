@@ -742,17 +742,28 @@
 #pragma mark - Cancel
 /*! @name Cancel */
 /*!
- 実行中の処理をキャンセルする
+ 実行中のAPIリクエストをキャンセルする
  @discussion 処理中のアップロード／ダウンロード処理をキャンセルすることができます。
  @param file ABFile オブジェクト (またはその派生オブジェクト)
  */
 - (void)cancel:(ABFile *)file;
 /*!
- 実行中の処理をキャンセルする
+ 実行中のAPIリクエストをキャンセルする
  @discussion 処理中のアップロード／ダウンロード処理をキャンセルすることができます。
  @param file ABFile オブジェクト (またはその派生オブジェクト)
  @param option ABFileCancelOption オプション
  */
 - (void)cancel:(ABFile *)file option:(ABFileCancelOption)option;
+/*!
+ 実行中のすべてのAPIリクエストをキャンセルする
+ @discussion 処理中のアップロード／ダウンロード処理をキャンセルすることができます。
+ */
+- (void)cancelAll;
+/*!
+ 実行中のすべてのAPIリクエストをキャンセルする
+ @discussion 処理中のアップロード／ダウンロード処理をキャンセルすることができます。
+ @param option ABFileCancelOption オプション
+ */
+- (void)cancelAllWithOption:(ABFileCancelOption)option;
 
 @end
