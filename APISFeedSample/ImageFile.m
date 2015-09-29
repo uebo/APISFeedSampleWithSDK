@@ -10,7 +10,7 @@
 
 @implementation ImageFile
 
-@dynamic size;
+//@dynamic size;
 
 + (NSString *)collectionID { return @"imageFile"; }
 

@@ -8,7 +8,8 @@
 
 #import "ViewController.h"
 #import "CollectionViewCell.h"
-#import <AppiariesSDK/AppiariesSDK.h>
+//FIXME: SDKをインポートする
+//#import <AppiariesSDK/AppiariesSDK.h>
 #import "Post.h"
 #import "ImageFile.h"
 
@@ -38,8 +39,8 @@
     [self.refreshControl addTarget:self action:@selector(refreshAction:) forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:self.refreshControl];
     self.collectionView.alwaysBounceVertical = YES;
-    
-    [self refreshAction:nil];
+    //FIXME: 初回画面呼び出し
+//    [self refreshAction:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -72,26 +73,26 @@
     if ([self.imageCache objectForKey:indexPath] != nil) {
         [cell.mainImageView setImage:[self.imageCache objectForKey:indexPath]];
     } else {
-        //画像データをFileオブジェクトから取得する        
+        //FIXME: 画像データをFileオブジェクトから取得する
         //ファイルの取得
-        ImageFile *imageFile = [ImageFile new];
-        imageFile.ID = post.imageObjectId;
-        [baas.file fetch:imageFile block:^(ABResult *result, ABError *error) {
-            if (error) {
-                NSLog(@"%@", error.description);
-            } else {
-                //ファイルオブジェクト生成
-                ImageFile *fetched = result.data;
-                //URLから画像ファイルを取得
-                [self processImageDataWithURLString:fetched.url andBlock:^(NSData *imageData) {
-                    //画像をCellに設定
-                    UIImage *image = [[UIImage alloc]initWithData:imageData];
-                    [cell.mainImageView setImage:image];
-                    //キャッシュ領域に保存
-                    [self.imageCache setObject:image forKey:indexPath];
-                }];
-            }
-        }];
+//        ImageFile *imageFile = [ImageFile new];
+//        imageFile.ID = post.imageObjectId;
+//        [baas.file fetch:imageFile block:^(ABResult *result, ABError *error) {
+//            if (error) {
+//                NSLog(@"%@", error.description);
+//            } else {
+//                //ファイルオブジェクト生成
+//                ImageFile *fetched = result.data;
+//                //URLから画像ファイルを取得
+//                [self processImageDataWithURLString:fetched.url andBlock:^(NSData *imageData) {
+//                    //画像をCellに設定
+//                    UIImage *image = [[UIImage alloc]initWithData:imageData];
+//                    [cell.mainImageView setImage:image];
+//                    //キャッシュ領域に保存
+//                    [self.imageCache setObject:image forKey:indexPath];
+//                }];
+//            }
+//        }];
     }
     
     //テキスト
@@ -112,23 +113,23 @@
     [self.refreshControl beginRefreshing];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
-    //抽出条件を指定
-    ABQuery *query = [Post query];
-//  ABQuery *query = [[Post query] where:@"comment" equalsTo:@"aaaa"];
-    
-    //DBを検索する
-    [baas.db findWithQuery:query block:^(ABResult *result, ABError *error) {
-        if (error) {
-            NSLog(@"%@", error.description);
-        } else {
-            NSLog(@"%@", result.data);
-            self.collections = result.data;
-            //テーブルを更新
-            [self.collectionView reloadData];
-        }
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [self.refreshControl endRefreshing];
-    }];    
+    //FIXME:抽出条件を指定
+//    ABQuery *query = [Post query];
+////  ABQuery *query = [[Post query] where:@"comment" equalsTo:@"aaaa"];
+//    
+//    //DBを検索する
+//    [baas.db findWithQuery:query block:^(ABResult *result, ABError *error) {
+//        if (error) {
+//            NSLog(@"%@", error.description);
+//        } else {
+//            NSLog(@"%@", result.data);
+//            self.collections = result.data;
+//            //テーブルを更新
+//            [self.collectionView reloadData];
+//        }
+//        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+//        [self.refreshControl endRefreshing];
+//    }];    
 }
 
 - (void)processImageDataWithURLString:(NSString *)urlString andBlock:(void (^)(NSData *imageData))processImage

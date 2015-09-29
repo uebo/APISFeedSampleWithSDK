@@ -8,7 +8,8 @@
 
 #import "PostViewController.h"
 #import "UIImage+Extensions.h"
-#import <AppiariesSDK/AppiariesSDK.h>
+//FIXME: SDKをインポートする
+//#import <AppiariesSDK/AppiariesSDK.h>
 #import "Post.h"
 #import "ImageFile.h"
 
@@ -63,54 +64,54 @@
     //登録する画像
     NSData *imageData = UIImageJPEGRepresentation(self.selectedImage, 0.5);
 
-    //ファイルを作成する
-    ImageFile *imageFile = [ImageFile new];
-    imageFile.data = imageData;
-    imageFile.contentType = @"image/jpeg";
-    imageFile.name = @"upload.jpeg";
-    [imageFile saveWithBlock:^(ABResult *result, ABError *error) {
-        if (error) {
-            NSLog(@"%@", error.description);
-            self.saveButtonItem.enabled = YES;
-        } else {
-            NSLog(@"%@",result.data);
-            
-            //Fileで作成したIDを取得する
-            ImageFile *imageFile = result.data;
-            NSString *objectId = imageFile.ID;
-            
-            //JSONデータ作成処理へ
-            [self postDataWithObjectId:objectId];
-        }
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    }];
+    //FIXME: ファイルを作成する
+//    ImageFile *imageFile = [ImageFile new];
+//    imageFile.data = imageData;
+//    imageFile.contentType = @"image/jpeg";
+//    imageFile.name = @"upload.jpeg";
+//    [imageFile saveWithBlock:^(ABResult *result, ABError *error) {
+//        if (error) {
+//            NSLog(@"%@", error.description);
+//            self.saveButtonItem.enabled = YES;
+//        } else {
+//            NSLog(@"%@",result.data);
+//            
+//            //Fileで作成したIDを取得する
+//            ImageFile *imageFile = result.data;
+//            NSString *objectId = imageFile.ID;
+//            
+//            //JSONデータ作成処理へ
+//            [self postDataWithObjectId:objectId];
+//        }
+//        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+//    }];
 }
 
 - (void)postDataWithObjectId:(NSString*)objectId
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
-    //DBデータの作成
-    Post *post = [Post post];
-    post.imageObjectId = objectId ?:@"";
-    post.comment = self.commentTextView.text ?:@"";
-    [post saveWithBlock:^(ABResult *result, ABError *error) {
-        if (error) {
-            NSLog(@"error: %@",error.description);
-        } else {
-            //成功表示
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"成功!"
-                                                            message:@"登録しました！"
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
-            //閉じる
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        self.saveButtonItem.enabled = YES;
-    }];
+    //FIXME: DBデータの作成
+//    Post *post = [Post post];
+//    post.imageObjectId = objectId ?:@"";
+//    post.comment = self.commentTextView.text ?:@"";
+//    [post saveWithBlock:^(ABResult *result, ABError *error) {
+//        if (error) {
+//            NSLog(@"error: %@",error.description);
+//        } else {
+//            //成功表示
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"成功!"
+//                                                            message:@"登録しました！"
+//                                                           delegate:nil
+//                                                  cancelButtonTitle:@"OK"
+//                                                  otherButtonTitles:nil];
+//            [alert show];
+//            //閉じる
+//            [self dismissViewControllerAnimated:YES completion:nil];
+//        }
+//        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+//        self.saveButtonItem.enabled = YES;
+//    }];
 }
 
 - (IBAction)photoButtonAction:(id)sender {

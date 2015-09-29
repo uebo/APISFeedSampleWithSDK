@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AppiariesSDK/AppiariesSDK.h>
+//FIXME: SDKをインポートする
+//#import <AppiariesSDK/AppiariesSDK.h>
 
-@interface Post : ABDBObject <ABManagedProtocol>
+//FIXME: ABDBObjectを継承、protocolを指定
+//@interface Post : ABDBObject <ABManagedProtocol>
+@interface Post : NSObject
 
 @property (strong, nonatomic) NSString *comment;
 @property (strong, nonatomic) NSString *imageObjectId;
